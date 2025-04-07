@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Calculate Daily Calorie Needs</string>
+    <string name="berat" translatable="false">Berat Badan</string>
+    <string name="tinggi" translatable="false">Tinggi Badan</string>
+    <string name="usia" translatable="false">Usia</string>
+    <string name="pria" translatable="false">Pria</string>
+    <string name="wanita" translatable="false">Wanita</string>
+    <string name="hitung" translatable="false">Hitung Kalori</string>
+    <string name="aktivitas" translatable="false">Aktivitas Harian</string>
+    <string-array name="aktivitas_options">
+        <item>Sangat ringan (tidak olahraga)</item>
+        <item>Ringan (1-3x/minggu olahraga)</item>
+        <item>Sedang (3-5x/minggu olahraga)</item>
+        <item>Berat (6-7x/minggu olahraga)</item>
+        <item>Sangat berat (2x/hari olahraga)</item>
+    </string-array>
+    <string name="hasil_kalori" translatable="false">Kebutuhan Kalori Harian Anda: %1$.2f kkal/hari</string>
+    <string name="input_tidak_valid" translatable="false">Input tidak valid</string>
+
 </resources>

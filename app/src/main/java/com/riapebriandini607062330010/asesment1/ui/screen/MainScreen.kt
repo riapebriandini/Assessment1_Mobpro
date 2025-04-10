@@ -1,6 +1,8 @@
 package com.riapebriandini607062330010.asesment1.ui.screen
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,12 +16,20 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Female
+import androidx.compose.material.icons.filled.Male
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,7 +43,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
@@ -49,9 +60,7 @@ fun MainScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Text(text = stringResource(id = R.string.app_name))
-                },
+                title = { Text(text = stringResource(R.string.app_name)) },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary,
@@ -59,22 +68,28 @@ fun MainScreen() {
             )
         }
     ) { padding ->
-        ScreenContent(Modifier.padding(padding))
+        ScreenContent(modifier = Modifier.padding(padding))
     }
 }
 
+@SuppressLint("StringFormatMatches")
 @Composable
 fun ScreenContent(modifier: Modifier) {
     var berat by remember { mutableStateOf("") }
     var tinggi by remember { mutableStateOf("") }
     var usia by remember { mutableStateOf("") }
-    var hasilKalori by remember { mutableStateOf<String?>(null) }
 
-    val radioOptions = listOf(
-        stringResource(id = R.string.pria),
-        stringResource(id = R.string.wanita)
+    var beratError by remember { mutableStateOf(false) }
+    var tinggiError by remember { mutableStateOf(false) }
+    var usiaError by remember { mutableStateOf(false) }
+
+    var hasilKalori by remember { mutableStateOf<Double?>(null) }
+
+    val genderOptions = listOf(
+        stringResource(R.string.male),
+        stringResource(R.string.female)
     )
-    var gender by remember { mutableStateOf(radioOptions[0]) }
+    var gender by remember { mutableStateOf(genderOptions[0]) }
 
     val aktivitasOptions = listOf(
         "Sangat ringan (tidak olahraga)",
@@ -85,7 +100,6 @@ fun ScreenContent(modifier: Modifier) {
     )
     var selectedAktivitas by remember { mutableStateOf(aktivitasOptions[0]) }
 
-    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -94,43 +108,66 @@ fun ScreenContent(modifier: Modifier) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.salad),
+            contentDescription = "Ilustrasi Makanan Sehat",
+            modifier = Modifier.padding(bottom = 16.dp),
+            contentScale = ContentScale.Fit
+        )
+
+        Text(
+            text = "Makanan Sehat untuk Tubuh Sehat!",
+            style = MaterialTheme.typography.titleMedium
+        )
+
         OutlinedTextField(
             value = berat,
             onValueChange = { berat = it },
-            label = { Text(text = stringResource(R.string.berat)) },
-            trailingIcon = { Text("kg") },
-            singleLine = true,
+            label = { Text(stringResource(R.string.weight)) },
+            trailingIcon = { IconPicker(beratError, "kg") },
+            isError = beratError,
+            supportingText = { ErrorHint(beratError) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-            modifier = Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = tinggi,
-            onValueChange = { tinggi = it },
-            label = { Text(text = stringResource(R.string.tinggi)) },
-            trailingIcon = { Text("cm") },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-            modifier = Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = usia,
-            onValueChange = { usia = it },
-            label = { Text(text = stringResource(R.string.usia)) },
-            trailingIcon = { Text("tahun") },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
             modifier = Modifier.fillMaxWidth()
         )
 
+        OutlinedTextField(
+            value = tinggi,
+            onValueChange = { tinggi = it },
+            label = { Text(stringResource(R.string.height)) },
+            trailingIcon = { IconPicker(tinggiError, "cm") },
+            isError = tinggiError,
+            supportingText = { ErrorHint(tinggiError) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = usia,
+            onValueChange = { usia = it },
+            label = { Text(stringResource(R.string.age)) },
+            trailingIcon = { IconPicker(usiaError, "tahun") },
+            isError = usiaError,
+            supportingText = { ErrorHint(usiaError) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
+            modifier = Modifier.fillMaxWidth().padding(end = 8.dp)
+        )
+
         Row(modifier = Modifier.border(1.dp, Color.Gray, RoundedCornerShape(4.dp))) {
-            radioOptions.forEach { text ->
+            genderOptions.forEach { text ->
+                val icon = if (text == stringResource(R.string.male)) Icons.Default.Male else Icons.Default.Female
                 Row(
                     modifier = Modifier
-                        .selectable(selected = gender == text, onClick = { gender = text }, role = Role.RadioButton)
+                        .selectable(
+                            selected = gender == text,
+                            onClick = { gender = text },
+                            role = Role.RadioButton
+                        )
                         .weight(1f)
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                     RadioButton(selected = gender == text, onClick = null)
                     Text(text = text, modifier = Modifier.padding(start = 8.dp))
                 }
@@ -145,27 +182,45 @@ fun ScreenContent(modifier: Modifier) {
 
         Button(
             onClick = {
+                beratError = berat.isBlank() || berat == "0"
+                tinggiError = tinggi.isBlank() || tinggi == "0"
+                usiaError = usia.isBlank() || usia == "0"
+
+                if (beratError || tinggiError || usiaError) {
+                    hasilKalori = null
+                    return@Button
+                }
+
                 val b = berat.toDoubleOrNull()
                 val t = tinggi.toDoubleOrNull()
                 val u = usia.toDoubleOrNull()
-                if (b != null && t != null && u != null) {
-                    val hasil = hitungKalori(b, t, u, gender, selectedAktivitas)
-                    hasilKalori = context.getString(R.string.hasil_kalori, hasil)
-                } else {
-                    hasilKalori = context.getString(R.string.input_tidak_valid)
-                }
+
+                hasilKalori = if (b != null && t != null && u != null) {
+                    hitungKalori(b, t, u, gender, selectedAktivitas)
+                } else null
             },
             modifier = Modifier.padding(top = 8.dp)
         ) {
-            Text(text = stringResource(R.string.hitung))
+            Text(stringResource(R.string.count))
         }
 
-        hasilKalori?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(top = 16.dp)
-            )
+        hasilKalori?.let { hasil ->
+            val iconGender = if (gender == stringResource(R.string.male)) Icons.Filled.Male else Icons.Filled.Female
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                shape = RoundedCornerShape(12.dp),
+                elevation = CardDefaults.cardElevation(4.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF3E0))
+            ) {
+                Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(iconGender, contentDescription = null, tint = Color(0xFFEF6C00), modifier = Modifier.padding(end = 12.dp))
+                    Text(
+                        text = stringResource(R.string.result, hasil),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color(0xFFEF6C00)
+                    )
+                }
+            }
         }
     }
 }
@@ -181,18 +236,42 @@ fun DropdownMenuBox(options: List<String>, selected: String, onSelectedChange: (
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { expanded = true },
-            label = { Text(text = stringResource(R.string.aktivitas)) },
+            label = { Text(stringResource(R.string.activity)) },
             enabled = false,
-            readOnly = true
+            readOnly = true,
+            colors = OutlinedTextFieldDefaults.colors(
+                disabledTextColor = Color.Black,
+                disabledLabelColor = Color.Gray,
+                disabledBorderColor = Color.Gray
+            )
         )
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             options.forEach { label ->
-                DropdownMenuItem(text = { Text(label) }, onClick = {
-                    onSelectedChange(label)
-                    expanded = false
-                })
+                DropdownMenuItem(
+                    text = { Text(label) },
+                    onClick = {
+                        onSelectedChange(label)
+                        expanded = false
+                    }
+                )
             }
         }
+    }
+}
+
+@Composable
+fun IconPicker(isError: Boolean, unit: String) {
+    if (isError) {
+        Icon(imageVector = Icons.Filled.Warning, contentDescription = null, tint = Color.Red)
+    } else {
+        Text(text = unit)
+    }
+}
+
+@Composable
+fun ErrorHint(isError: Boolean) {
+    if (isError){
+        Text(text = stringResource(R.string.input_invalid))
     }
 }
 
@@ -220,5 +299,3 @@ fun MainScreenPreview() {
         MainScreen()
     }
 }
-
-

@@ -1,12 +1,15 @@
 package com.riapebriandini607062330010.asesment1.ui.screen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,7 +50,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
@@ -108,14 +113,11 @@ fun ScreenContent(modifier: Modifier) {
     )
     var gender by rememberSaveable { mutableStateOf(genderOptions[0]) }
 
-    val aktivitasOptions = listOf(
-        "Sangat ringan (tidak olahraga)",
-        "Ringan (1–3x/minggu olahraga)",
-        "Sedang (3–5x/minggu olahraga)",
-        "Berat (6–7x/minggu olahraga)",
-        "Sangat berat (2x/hari olahraga)"
-    )
+    val aktivitasOptions = stringArrayResource(id = R.array.activity_options).toList()
+
     var selectedAktivitas by remember { mutableStateOf(aktivitasOptions[0]) }
+
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -167,7 +169,9 @@ fun ScreenContent(modifier: Modifier) {
             isError = usiaError,
             supportingText = { ErrorHint(usiaError) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-            modifier = Modifier.fillMaxWidth().padding(end = 8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(end = 8.dp)
         )
 
         Row(modifier = Modifier.border(1.dp, Color.Gray, RoundedCornerShape(4.dp))) {
@@ -224,7 +228,9 @@ fun ScreenContent(modifier: Modifier) {
         hasilKalori?.let { hasil ->
             val iconGender = if (gender == stringResource(R.string.male)) Icons.Filled.Male else Icons.Filled.Female
             Card(
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
                 shape = RoundedCornerShape(12.dp),
                 elevation = CardDefaults.cardElevation(4.dp),
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF3E0))
@@ -237,6 +243,29 @@ fun ScreenContent(modifier: Modifier) {
                         color = Color(0xFFEF6C00)
                     )
                 }
+            }
+        }
+        if (hasilKalori != null) {
+            Button(
+                onClick = {
+                    val message = """
+                        Hai! Ini hasil perhitungan kalori saya:
+                        
+                        Berat: $berat kg
+                        Tinggi: $tinggi cm
+                        Usia: $usia tahun
+                        Gender: $gender
+                        Aktivitas: $selectedAktivitas
+                        
+                        Kebutuhan Kalori Harian: ${String.format("%.2f", hasilKalori)} kkal
+                    """.trimIndent()
+
+                    shareData(context, message)
+                },
+                modifier = Modifier.padding(top = 8.dp),
+                contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
+            ) {
+                Text(text = stringResource(R.string.share))
             }
         }
     }
@@ -293,20 +322,28 @@ fun ErrorHint(isError: Boolean) {
 }
 
 fun hitungKalori(berat: Double, tinggi: Double, usia: Double, gender: String, aktivitas: String): Double {
-    val bmr = if (gender == "Pria") {
-        (10 * berat) + (6.25 * tinggi) - (5 * usia) + 5
-    } else {
-        (10 * berat) + (6.25 * tinggi) - (5 * usia) - 161
-    }
+    val bmr = (10 * berat) + (6.25 * tinggi) - (5 * usia) +
+            if (gender == "Male") 5 else -161
+
     val faktorAktivitas = when (aktivitas) {
-        "Sangat ringan (tidak olahraga)" -> 1.2
-        "Ringan (1–3x/minggu olahraga)" -> 1.375
-        "Sedang (3–5x/minggu olahraga)" -> 1.55
-        "Berat (6–7x/minggu olahraga)" -> 1.725
-        "Sangat berat (2x/hari olahraga)" -> 1.9
+        "Very mild (no exercise)" -> 1.2
+        "Mild (1-3x/week exercise)" -> 1.375
+        "Medium (3-5x/week exercise)" -> 1.55
+        "Heavy (6-7x/week exercise)" -> 1.725
+        "Very heavy (2x/day exercise)" -> 1.9
         else -> 1.2
     }
     return bmr * faktorAktivitas
+}
+
+private fun shareData(context: Context, message: String) {
+    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, message)
+    }
+    if (shareIntent.resolveActivity(context.packageManager) != null) {
+        context.startActivity(shareIntent)
+    }
 }
 
 @Preview(showBackground = true)

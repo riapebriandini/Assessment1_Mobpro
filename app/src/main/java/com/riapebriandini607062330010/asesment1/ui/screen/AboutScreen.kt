@@ -32,7 +32,7 @@ fun AboutScreen(navController: NavHostController) {
                     IconButton(onClick = { navController.popBackStack()}) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.back)
+                            contentDescription = stringResource(R.string.back),
                         )
                     }
                 },

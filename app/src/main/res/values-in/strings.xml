@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hitung Kalori Harian</string>
+    <string name="weight">Berat Badan</string>
+    <string name="height">Tinggi Badan</string>
+    <string name="age">Usia</string>
+    <string name="male">Pria</string>
+    <string name="female">Wanita</string>
+
+    <string name="count">Hitung Kalori</string>
+    <string name="activity" translatable="false">Aktivitas Harian</string>
+    <string-array name="activity_options">
+        <item>Sangat ringan (tidak olahraga)</item>
+        <item>Ringan (1-3x/minggu olahraga)</item>
+        <item>Sedang (3-5x/minggu olahraga)</item>
+        <item>Berat (6-7x/minggu olahraga)</item>
+        <item>Sangat berat (2x/hari olahraga)</item>
+    </string-array>
+    <string name="result">Kebutuhan kalori harian anda: %1$.2f kkal/day</string>
+    <string name="input_invalid">Tidak boleh kosong</string>
+
+    <string name="about_app">Tentang Aplikasi</string>
+    <string name="copyright">Aplikasi Hitung Kalori Harian adalah alat bantu yang dirancang untuk memudahkan pengguna dalam mengetahui kebutuhan energi tubuh setiap harinya berdasarkan berat badan, tinggi, usia, jenis kelamin, dan tingkat aktivitas fisik.
+        \n\nDengan tampilan yang menarik dan interaktif, aplikasi ini membantu pengguna mengatur pola makan yang lebih sehat dan seimbang, serta mendukung pencapaian gaya hidup aktif dan ideal.
+        \n\nAplikasi ini dibuat untuk memenuhi assessment 1 Mobpro 1.
+        \nCopyright © 2024-2025 Ria Pebrian Dini.
+        \nAll rights reserved.</string>
+    <string name="back">Kembali</string>
+    <string name="share">Bagikan</string>
+    <string name="share_template">Berat Badan: %1$s kg\nTinggi Badan: %2$s cm          Usia: %3$s tahun          Jenis Kelamin: %4$s          Aktivitas: %5$s          Kalori: %6$.2f kkal</string>
 </resources>

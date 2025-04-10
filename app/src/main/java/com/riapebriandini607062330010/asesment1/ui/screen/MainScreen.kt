@@ -169,9 +169,11 @@ fun ScreenContent(modifier: Modifier) {
             isError = usiaError,
             supportingText = { ErrorHint(usiaError) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 8.dp)
+            modifier = Modifier.fillMaxWidth(),
+            suffix = {
+                Text(text = "tahun", modifier = Modifier.padding(end = 8.dp))
+            }
+
         )
 
         Row(modifier = Modifier.border(1.dp, Color.Gray, RoundedCornerShape(4.dp))) {

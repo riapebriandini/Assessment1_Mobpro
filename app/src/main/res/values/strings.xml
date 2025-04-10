@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Calculate Daily Calorie Needs</string>
-    <string name="weight" translatable="false">Body Weight</string>
-    <string name="height" translatable="false">Body Height</string>
-    <string name="age" translatable="false">Age</string>
-    <string name="male" translatable="false">Male</string>
-    <string name="female" translatable="false">Female</string>
+    <string name="weight">Body Weight</string>
+    <string name="height">Body Height</string>
+    <string name="age">Age</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
     
-    <string name="count" translatable="false">Calorie Count</string>
+    <string name="count">Calorie Count</string>
     <string name="activity" translatable="false">Daily Activities</string>
     <string-array name="activity_options">
         <item>Very mild (no exercise)</item>
@@ -15,23 +15,22 @@
         <item>Heavy (6-7x/week exercise)</item>
         <item>Very heavy (2x/day exercise)</item>
     </string-array>
-    <string name="result" translatable="false">Your daily calorie needs: %1$.2f kkal/day</string>
-    <string name="input_invalid" translatable="false">Cannot be empty</string>
+    <string name="result">Your daily calorie needs: %1$.2f kkal/day</string>
+    <string name="input_invalid">Cannot be empty</string>
     
-    <string name="about_app" translatable="false">About App</string>
-    <string name="copyright" translatable="false">Aplikasi Hitung Kalori Harian adalah alat bantu yang dirancang untuk memudahkan pengguna dalam mengetahui kebutuhan energi tubuh setiap harinya berdasarkan berat badan, tinggi, usia, jenis kelamin, dan tingkat aktivitas fisik.
-        \n\nDengan tampilan yang menarik dan interaktif, aplikasi ini membantu pengguna mengatur pola makan yang lebih sehat dan seimbang, serta mendukung pencapaian gaya hidup aktif dan ideal.
-        \n\nAplikasi ini dibuat untuk memenuhi assessment 1 Mobpro 1.
+    <string name="about_app">About App</string>
+    <string name="copyright">Daily Calorie Needs Calculator is a helpful tool designed to assist users in determining their bodys daily energy requirements based on weight, height, age, gender, and physical activity level.
+        \n\nWith an attractive and interactive interface, this application helps users manage a healthier and more balanced diet, supporting the achievement of an active and ideal lifestyle.
+        \n\nThis application was developed as part of the Assessment 1 for Mobile Programming 1.
         \nCopyright © 2024-2025 Ria Pebrian Dini.
         \nAll rights reserved.</string>
-    <string name="back" translatable="false">Back</string>
+    <string name="back">Back</string>
     
-    <string name="share" translatable="false">Share</string>
-    <string name="share_template" translatable="false">Body Weight: %1$s kg
+    <string name="share">Share</string>
+    <string name="share_template">"Body Weight: %1$s kg
         \nBody Height: %2$s cm
         \nAge: %3$s tahun
         \nGender: %4$s
-        \nActivity: %5$s
-        \nKalori: %6$.2f kkal
-    </string>
+        \n\nActivity: %5$s
+        \nKalori: %6$.2f kkal</string>
 </resources>

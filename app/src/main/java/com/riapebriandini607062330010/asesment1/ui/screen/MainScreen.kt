@@ -41,6 +41,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -91,21 +92,21 @@ fun MainScreen(navController: NavHostController) {
 @SuppressLint("StringFormatMatches")
 @Composable
 fun ScreenContent(modifier: Modifier) {
-    var berat by remember { mutableStateOf("") }
-    var tinggi by remember { mutableStateOf("") }
-    var usia by remember { mutableStateOf("") }
+    var berat by rememberSaveable { mutableStateOf("") }
+    var tinggi by rememberSaveable { mutableStateOf("") }
+    var usia by rememberSaveable { mutableStateOf("") }
 
-    var beratError by remember { mutableStateOf(false) }
-    var tinggiError by remember { mutableStateOf(false) }
-    var usiaError by remember { mutableStateOf(false) }
+    var beratError by rememberSaveable { mutableStateOf(false) }
+    var tinggiError by rememberSaveable { mutableStateOf(false) }
+    var usiaError by rememberSaveable { mutableStateOf(false) }
 
-    var hasilKalori by remember { mutableStateOf<Double?>(null) }
+    var hasilKalori by rememberSaveable { mutableStateOf<Double?>(null) }
 
     val genderOptions = listOf(
         stringResource(R.string.male),
         stringResource(R.string.female)
     )
-    var gender by remember { mutableStateOf(genderOptions[0]) }
+    var gender by rememberSaveable { mutableStateOf(genderOptions[0]) }
 
     val aktivitasOptions = listOf(
         "Sangat ringan (tidak olahraga)",

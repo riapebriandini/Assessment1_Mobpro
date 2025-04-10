@@ -309,6 +309,7 @@ fun hitungKalori(berat: Double, tinggi: Double, usia: Double, gender: String, ak
     return bmr * faktorAktivitas
 }
 
+@Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
 fun MainScreenPreview() {

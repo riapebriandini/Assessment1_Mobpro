@@ -165,14 +165,22 @@ fun ScreenContent(modifier: Modifier) {
             value = usia,
             onValueChange = { usia = it },
             label = { Text(stringResource(R.string.age)) },
-            trailingIcon = { IconPicker(usiaError, "tahun") },
             isError = usiaError,
+            modifier = Modifier.fillMaxWidth(),
             supportingText = { ErrorHint(usiaError) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-            modifier = Modifier.fillMaxWidth(),
-            suffix = {
-                Text(text = "tahun", modifier = Modifier.padding(end = 8.dp))
-            }
+            trailingIcon = {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "tahun",
+                        modifier = Modifier.padding(end = 4.dp) // kasih jarak biar ga nempel ke icon
+                    )
+                    IconPicker(usiaError, "")
+                }
+            },
+            singleLine = true,
 
         )
 

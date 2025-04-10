@@ -27,10 +27,14 @@
     <string name="back">Back</string>
     
     <string name="share">Share</string>
-    <string name="share_template">"Body Weight: %1$s kg
-        \nBody Height: %2$s cm
-        \nAge: %3$s tahun
-        \nGender: %4$s
-        \n\nActivity: %5$s
-        \nKalori: %6$.2f kkal</string>
+    <string name="share_template">
+    Hi! Heres my calorie calculation result:\n\n
+    Weight: %1$s kg\n
+    Height: %2$s cm\n
+    Age: %3$s years\n
+    Gender: %4$s\n
+    Activity: %5$s\n
+    Daily Calorie Needs: %6$.2f kcal
+    </string>
+
 </resources>

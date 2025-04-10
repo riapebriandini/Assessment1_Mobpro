@@ -26,6 +26,16 @@
         \nCopyright © 2024-2025 Ria Pebrian Dini.
         \nAll rights reserved.</string>
     <string name="back">Kembali</string>
+
     <string name="share">Bagikan</string>
-    <string name="share_template">Berat Badan: %1$s kg\nTinggi Badan: %2$s cm          Usia: %3$s tahun          Jenis Kelamin: %4$s          Aktivitas: %5$s          Kalori: %6$.2f kkal</string>
+    <string name="share_template">
+    Hai! Ini hasil perhitungan kalori saya:\n\n
+    Berat: %1$s kg\n
+    Tinggi: %2$s cm\n
+    Usia: %3$s tahun\n
+    Jenis Kelamin: %4$s\n
+    Aktivitas: %5$s\n
+    Kebutuhan Kalori Harian: %6$.2f kkal
+</string>
+
 </resources>

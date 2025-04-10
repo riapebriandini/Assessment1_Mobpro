@@ -250,18 +250,9 @@ fun ScreenContent(modifier: Modifier) {
         if (hasilKalori != null) {
             Button(
                 onClick = {
-                    val message = """
-                        Hai! Ini hasil perhitungan kalori saya:
-                        
-                        Berat: $berat kg
-                        Tinggi: $tinggi cm
-                        Usia: $usia tahun
-                        Gender: $gender
-                        Aktivitas: $selectedAktivitas
-                        
-                        Kebutuhan Kalori Harian: ${String.format("%.2f", hasilKalori)} kkal
-                    """.trimIndent()
-
+                    val message = context.getString(R.string.share_template,
+                    berat, tinggi, usia, gender, selectedAktivitas, hasilKalori
+                )
                     shareData(context, message)
                 },
                 modifier = Modifier.padding(top = 8.dp),

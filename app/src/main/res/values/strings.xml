@@ -13,7 +13,7 @@
         <item>Mild (1-3x/week exercise)</item>
         <item>Medium (3-5x/week exercise)</item>
         <item>Heavy (6-7x/week exercise)</item>
-        <item>Very heaxy (2x/day exercise)</item>
+        <item>Very heavy (2x/day exercise)</item>
     </string-array>
     <string name="result" translatable="false">Your daily calorie needs: %1$.2f kkal/day</string>
     <string name="input_invalid" translatable="false">Cannot be empty</string>
